@@ -24,7 +24,6 @@ Then, we evaluate the quality of the `careless` results in the jupyter notebook 
 - `20221007_unscaled_unmerged`: a folder with sixty-five holo drug fragment screening datasets and one reference drug fragment screening dataset. Each subfolder contains a model as well as several `.mtz` files that have been preprocessed using `scripts/hkl2mtz.sh`, as well as `clean_datasets_compute_diffmaps.ipynb`, a Jupyter notebook that corrects for indexing ambiguities and adds metadata columns to the `.mtz` files in preparation for `careless`. 
 
 - `careless_runs`: a folder containing a script for running `careless` as a batch array, as well as the resultant subfolders containing outputs from individual runs of `careless`. 
-- `logs`: log files from careless runs and other scripts. 
 - `pymol_dfs`: a folder with pymol inputs and outputs. 
 - `scripts`: a folder with scripts and two mtzs. 
     - `DFS_refine_mv.mtz`: an MTZ file with phases refined from `7kqo.pdb` and a dataset merged with a multivariate prior (`careless_runs/merge_20379915_20830_mono_mc1_10k_grid_6/dfs_1.mtz`).

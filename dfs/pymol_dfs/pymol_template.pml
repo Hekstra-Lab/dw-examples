@@ -6,7 +6,8 @@ num=2
 # ^^^^^
 
 
-cd /Users/hwang/Documents/hekstra/dw/pymol_dfs/
+cd /Users/hwang/Documents/hekstra/dw/pymol_dfs/ 
+#set your directory here. 
 
 #settings
 bg_color white
