@@ -14,7 +14,7 @@ conda activate careless
 ```
 Please change the name of the conda environment as needed. 
 
-Additionally, some scripts require sourcing Phenix, for example: 
+Additionally, some scripts require sourcing Phenix, e.g.: 
 [run_ccs.sh](thermolysin_xfel/scripts/run_ccs.sh)
 
 ```
