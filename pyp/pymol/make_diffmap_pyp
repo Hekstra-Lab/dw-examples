@@ -1,0 +1,84 @@
+#set your directory here.
+cd /Users/hwang/Documents/hekstra/dw/pymol/ 
+
+
+#settings
+bg_color white
+set ray_opaque_background, true
+set map_auto_expand_sym, 1
+set mesh_radius, 0.03
+set antialias, 1
+set direct, 0.5
+util.ray_shadows('none')
+set cartoon_gap_cutoff, 0
+set ray_volume
+
+load MinMLAD_2phy_1TS0_B_post_MT_occ_1.pdb, PYP_ON
+color 0x5ab4ac, PYP_ON
+load MinMLAD_2phy_1TS0_A_post_MT_occ_1.pdb, PYP_OFF
+color 0xd8b365, PYP_OFF
+util.cnc
+
+cmd.set_view((-0.6453977227210999, 0.16938523948192596, 0.7448292970657349, 0.7503083944320679, -0.04220133274793625, 0.6597376465797424, 0.14318078756332397, 0.9846428632736206, -0.09985347092151642, 0.0, 0.0, -42.55150604248047, 14.567227363586426, 0.4460453987121582, -19.25104522705078, 39.71034622192383, 45.39265060424805, -20.0))
+
+sele chrom_on, PYP_ON and (resi 69 and name cb or resi 69 and name sg or resn hc4)
+sele chrom_off, PYP_OFF and (resi 69 and name cb or resi 69 and name sg or resn hc4)
+hide everything, chrom_on
+hide everything, chrom_off
+
+set valence, 0
+set stick_radius, 0.2, not hydrogens
+
+show sticks, chrom_on
+png png/chrom_on.png,dpi=900
+hide sticks, chrom_on
+
+show sticks, chrom_off
+png png/chrom_off.png,dpi=900
+hide sticks, chrom_off
+
+show sticks, (not hydrogens)
+
+load_mtz MinMLAD_2phy_1TS0_A_post_MT_occ_1_fmodel.mtz, F_off, FMODEL, PHIFMODEL
+map_double F_off
+load_mtz MinMLAD_2phy_1TS0_B_post_MT_occ_1_fmodel.mtz, F_on, FMODEL, PHIFMODEL
+map_double F_on
+load_mtz out_univariate.mtz, DeltaF, DeltaF, PHIFCALC
+map_double DeltaF
+load_mtz out_unweighted.mtz, bestDF, DeltaF, PHIFCALC
+map_double bestDF
+
+cmd.set_view((-0.7862376570701599, 0.2585834264755249, 0.5612141489982605, 0.574804425239563, -0.027238160371780396, 0.8178313970565796, 0.2267623245716095, 0.965599775314331, -0.1272190660238266, -0.00010873004794120789, 0.00021018274128437042, -42.13780975341797, 14.060060501098633, -0.9473514556884766, -19.118722915649414, 38.294677734375, 45.966304779052734, -20.0))
+
+volume F_off_vol,F_off,2.0,PYP_OFF,carve=1.5
+volume F_on_vol,F_on,2.0,PYP_ON,carve=1.5
+
+cmd.volume_ramp_new('ramp281', [\
+      1.50, 0.96, 0.93, 0.34, 0.00, \
+      1.50, 0.96, 0.92, 0.34, 0.22, \
+      2.37, 0.29, 0.28, 0.10, 0.00, \
+    ])
+cmd.volume_ramp_new('ramp075', [\
+      1.50, 0.46, 0.96, 0.89, 0.00, \
+      1.50, 0.46, 0.96, 0.89, 0.21, \
+      2.39, 0.18, 0.37, 0.34, 0.00, \
+    ])
+volume_color F_off_vol, ramp281
+volume_color F_on_vol, ramp075
+
+isomesh diff_pos, DeltaF, 3.0, PYP_ON, carve=1.5
+color 0x5ab4ac, diff_pos
+isomesh diff_neg, DeltaF, -3.0, PYP_OFF, carve=1.5
+color 0xac9120, diff_neg
+
+png png/univariate_pyp.png,dpi=900
+
+hide everything, diff_pos
+hide everything, diff_neg
+
+isomesh best_diff_pos, bestDF, 3.0, PYP_ON, carve=1.5
+color 0x5ab4ac, best_diff_pos
+isomesh best_diff_neg, bestDF, -3.0, PYP_OFF, carve=1.5
+color 0xac9120, best_diff_neg
+
+png png/bivariate_pyp.png,dpi=900
