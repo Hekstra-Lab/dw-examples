@@ -5,9 +5,9 @@ dataset="P0115"
 num=2
 # ^^^^^
 
-
+#set your path here!
 cd /Users/hwang/Documents/hekstra/dw/pymol_dfs/ 
-#set your directory here. 
+
 
 #settings
 bg_color white
