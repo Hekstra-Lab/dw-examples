@@ -7,6 +7,9 @@
 #SBATCH -o logs/%j.out        # Standard output
 #SBATCH -e logs/%j.err        # Standard error
 
+
+# to run this script, rs-booster must be active. 
+
 refnum=1 #this is the reference dataset: the apo, merged conditional on apo 
 datasets=("P0115" "P0116" "P0123" "P0124" "P0131" "P0132" "P0137" "P0138" "P0139" "P0142" "P0148" "P0159" "P0161" "P0163" "P0178" "P0179")
 

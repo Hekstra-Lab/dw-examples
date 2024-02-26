@@ -1,6 +1,6 @@
 # Nsp3 Mac1 Fragment Screening
 
-This folder contains instructions and scripts for processing an Nsp3 Mac1 fragment screening dataset. Here, we
+This folder contains instructions and scripts for processing an Nsp3 Mac1 fragment screening dataset. To complete the analysis, `rs-booster`(https://github.com/rs-station/rs-booster) must be installed. Here, we
 1. run `careless` with a multivariate prior, and for many values of the double-Wilson `r` parameter on 16 holo drug fragment-screening datasets. 
 2. inspect CCpred and difference map peak heights.
 
@@ -29,6 +29,6 @@ Then, we evaluate the quality of the `careless` results in the jupyter notebook 
     - `DFS_refine_mv.mtz`: an MTZ file with phases refined from `7kqo.pdb` and a dataset merged with a multivariate prior (`careless_runs/merge_20379915_20830_mono_mc1_10k_grid_6/dfs_1.mtz`).
     - `DFS_refine_uv.mtz`: an MTZ file with phases refined from `7kqo.pdb` and a dataset merged with a multivariate prior (`careless_runs/merge_20379918_5300_mono_mc1_10k_grid_2/dfs_1.mtz`). 
     - `hkl2mtz.sh`: a script that uses careless to convert `.hkl` files to `.mtz` files. 
-    - `make_diffmap_all.sh`: A script that computes difference maps given a folder with `careless` runs in it. 
-    - `make_diffmap_indiv.sh`: A script that computes difference maps of a single `careless` run. 
+    - `make_diffmap_all.sh`: A script that uses `rs-booster` to compute difference maps given a folder with `careless` runs in it. 
+    - `make_diffmap_indiv.sh`: A script that uses `rs-booster` to computes difference maps of a single `careless` run. 
     - `run_ccs_all.sh`: A script that computes CCpred given a folder with `careless` runs in it. 
