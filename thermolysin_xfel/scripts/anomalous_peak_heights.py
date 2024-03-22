@@ -3,15 +3,34 @@ import numpy as np
 import gemmi
 import sys
 import csv
+import reciprocalspaceship as rs
 
-def get_anom_peak_heights(mtz_filename, pdb_filename, atom_list):
+def weight_anomalous(mtz):
+    mtz["SIGANOM"] = np.sqrt((mtz["SIGF-obs-filtered(+)"]**2 + mtz["SIGF-obs-filtered(-)"]**2)/2)
+    mtz["W_dh"] = ((1 + mtz.SIGANOM**2./np.mean(mtz.SIGANOM**2.)\
+                     +0.05*np.abs(mtz.ANOM)**2/np.mean(np.abs(mtz.ANOM))**2.)**-1.).astype('W')
+    mtz["W_dh_d"] = 1/(1 + mtz.SIGANOM**2./np.mean(mtz.SIGANOM**2.)).astype('W')
 
+    mtz["W_dh_e"] = ((1 + mtz.SIGANOM**2./np.mean(mtz.SIGANOM**2.)\
+                     +np.abs(mtz.ANOM)/np.mean(np.abs(mtz.ANOM)))**-1.).astype('W')
+    return mtz
+
+def get_anom_peak_heights(mtz_filename, pdb_filename, atom_list, weight_key=None):
+    
     # Read in mtz and pdb as gemmi objects
-    mtz_file = gemmi.read_mtz_file(mtz_filename)
+    mtz_file = rs.read_mtz(mtz_filename)
+    #mtz_file = gemmi.read_mtz_file(mtz_filename)
     st = gemmi.read_pdb(pdb_filename)
-
-    # Prep VAE structure
-    real_grid = mtz_file.transform_f_phi_to_map('ANOM', 'PHANOM', sample_rate=3.0)
+    
+    if weight_key != None:
+        anom_key = "wANOM"
+        mtz_file = weight_anomalous(mtz_file)
+        mtz_file["wANOM"] = mtz_file[weight_key]*mtz_file.ANOM
+    else:
+        anom_key = "ANOM"
+        
+    # create grid
+    real_grid = mtz_file.to_gemmi().transform_f_phi_to_map(anom_key, 'PHANOM', sample_rate=3.0)
     real_grid.normalize()
 
     # Identify relevant atoms in the model
@@ -80,7 +99,8 @@ def main():
         var4 = path/filename for output csv
     """
     # Calculate peak heights
-    anom_res, anom_peaks = get_anom_peak_heights(mtz_filename=sys.argv[1], pdb_filename=sys.argv[2], atom_list=sys.argv[3])
+    weight_key = sys.argv[5] if len(sys.argv) > 5 else None
+    anom_res, anom_peaks = get_anom_peak_heights(mtz_filename=sys.argv[1], pdb_filename=sys.argv[2], atom_list=sys.argv[3], weight_key=weight_key)
 
     # Write out csv
     with open(sys.argv[4], 'w', newline='') as file:

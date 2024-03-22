@@ -5,25 +5,37 @@
 #SBATCH -t 0-8:00 # time (D-HH:MM)
 #SBATCH --gres=gpu:1
 #SBATCH --constraint=v100
+#SBATCH --array=2-16
 #SBATCH -o myoutput_%j.out
 #SBATCH -e myoutput_%j.err
 
+#  ** PROCESS GRID PARAMETERS **
+PARAM_FILE=slurm_params.txt
+#IL	MLPL    ITER    STDOF   PEF     rDW	RU
+#MY_PARAMS=$(sed "${0}q;d" ${PARAM_FILE})
+#echo $MY_PARAMS   
+MY_PARAMS=$(sed "${SLURM_ARRAY_TASK_ID}q;d" ${PARAM_FILE})
+TMP=(${MY_PARAMS///})
+echo "Parameters from slurm_params.txt: ${MY_PARAMS}"
+echo $TMP
+IL="${TMP[0]}"
+MLPL="${TMP[1]}"
+ITER="${TMP[2]}"
+STDOF="${TMP[3]}"
+PEF="${TMP[4]}"
+R="${TMP[5]}"
+RU="${TMP[6]}"
+
 MODE="poly"
-MC_SAMPLES=10
-IL=0
-MLPL=10
-ITER=30000
-STDOF=64
-PEF=4
-RU=0        # 1 turns on --refine-uncertainties
-SEED=$RANDOM
+DMIN=1.73
 TEST_FRACTION=0.1
+SEED=$RANDOM
+
 HALF_REPEATS=3
 
+MC_SAMPLES=10
 MLPW=32
 FRAMES=0999
-R=-1.00000 	#R<0 defaults to univariate prior
-DMIN=1.73
 
 INPUT_MTZS=(
     ../unmerged_mtzs/integrated_NaI_3_04_frame_0001_${FRAMES}_plus.mtz
@@ -35,11 +47,9 @@ USE_DW="DW"
 DWR_LIST=0.,${R}
 
 #Source your installation of careless here. To install careless, see: https://github.com/rs-station/careless
-# eval "$(conda shell.bash hook)"
-# conda activate careless
+eval "$(conda shell.bash hook)"
+conda activate careless
 
-source /n/home12/mklureza/opt/anaconda/etc/profile.d/conda.sh
-conda activate careless_gpu_new
 
 BASENAME=HEWL_dw_mlp${MLPW}_PEF_R${R}_${FRAMES}_dmin${DMIN}
 OUT=merge_${BASENAME}_${SLURM_JOB_ID}_${MODE}

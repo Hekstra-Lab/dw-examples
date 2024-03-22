@@ -1,0 +1,93 @@
+#set your directory here.
+cd /Users/hwang/Documents/hekstra/dw/pymol/ 
+
+
+#settings
+bg_color white
+set ray_opaque_background, true
+set map_auto_expand_sym, 1
+set mesh_radius, 0.03
+set antialias, 1
+set direct, 0.5
+util.ray_shadows('none')
+set cartoon_gap_cutoff, 0
+set ray_volume
+
+load MinMLAD_2phy_1TS0_B_post_MT_occ_1.pdb, PYP_ON
+color 0x5ab4ac, PYP_ON
+load MinMLAD_2phy_1TS0_A_post_MT_occ_1.pdb, PYP_OFF
+color 0xd8b365, PYP_OFF
+util.cnc
+
+sele chrom_res, resi 42+46+48+49+50+52+69+96+97+100+126
+sele chrom_on, PYP_ON and ((resi 69 and (name cb or name sg or name ca)) or resn hc4)
+sele chrom_off, PYP_OFF and ((resi 69 and (name cb or name sg or name ca)) or resn hc4)
+hide everything, chrom_on
+hide everything, chrom_off
+
+set valence, 0
+set stick_radius, 0.1, not hydrogens
+show sticks, everything within 10 of chrom_off
+hide everything
+
+show sticks, chrom_res or chrom_on or chrom_off
+
+show ribbon, (not hydrogens)
+
+load_mtz MinMLAD_2phy_1TS0_A_post_MT_occ_1_fmodel.mtz, F_off, FMODEL, PHIFMODEL
+map_double F_off
+load_mtz MinMLAD_2phy_1TS0_B_post_MT_occ_1_fmodel.mtz, F_on, FMODEL, PHIFMODEL
+map_double F_on
+load_mtz out_univariate.mtz, DeltaF, DeltaF, PHIFCALC
+map_double DeltaF
+load_mtz out_univariate.mtz, wDF, wDF, PHIFCALC
+map_double wDF
+load_mtz out_unweighted.mtz, bestDF, DeltaF, PHIFCALC
+map_double bestDF
+load_mtz out_weighted.mtz, bestwDF, wDF, PHIFCALC
+map_double bestwDF
+
+cmd.set_view((-0.44770610332489014, 0.7219446897506714, 0.527590811252594, 0.8074684143066406, 0.0729566290974617, 0.585375189781189, 0.384117066860199, 0.6880907416343689, -0.6156184077262878, 5.2681658416986465e-05, -2.6512891054153442e-05, -100.09527587890625, 18.925373077392578, -0.2795383930206299, -10.951784133911133, 65.57601928710938, 134.58560180664062, -20.0))
+
+
+isomesh diff_pos, DeltaF, 3.0, PYP_ON, carve=1.5
+color 0x5ab4ac, diff_pos
+isomesh diff_neg, DeltaF, -3.0, PYP_OFF, carve=1.5
+color 0xac9120, diff_neg
+
+# draw 2400,2400
+png png/univariate_pyp_whole.png
+
+hide everything, diff_pos
+hide everything, diff_neg
+
+isomesh best_diff_pos, bestDF, 3.0, PYP_ON, carve=1.5
+color 0x5ab4ac, best_diff_pos
+isomesh best_diff_neg, bestDF, -3.0, PYP_OFF, carve=1.5
+color 0xac9120, best_diff_neg
+
+# draw 2400,2400
+png png/best_unweighted_pyp_whole.png
+
+hide everything, best_diff_pos
+hide everything, best_diff_neg
+
+isomesh wdf_pos, wDF, 3.0, PYP_ON, carve=1.5
+color 0x5ab4ac, wdf_pos
+isomesh wdf_neg, wDF, -3.0, PYP_OFF, carve=1.5
+color 0xac9120, wdf_neg
+
+# draw 2400,2400
+png png/weighted_pyp_whole.png
+
+hide everything, wdf_pos
+hide everything, wdf_neg
+
+isomesh best_wdf_pos, bestwDF, 3.0, PYP_ON, carve=1.5
+color 0x5ab4ac, best_wdf_pos
+isomesh best_wdf_neg, bestwDF, -3.0, PYP_OFF, carve=1.5
+color 0xac9120, best_wdf_neg
+
+# draw 2400,2400
+png png/best_weighted_pyp_whole.png
+
