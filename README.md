@@ -30,5 +30,5 @@ For every example, there is a `README.md` that describes the contents of each ex
 
 - [time-resolved Laue crystallography of the photoactive yellow protein](pyp/README.md)
 - [anomalous diffraction from serial XFEL crystallography of thermolysin](thermolysin_xfel/README.md)
-- [anomalous diffractino from Laue crystallography of NaI-soaked lysozyme](lysozyme/README.md)
+- [anomalous diffraction from Laue crystallography of NaI-soaked lysozyme](lysozyme/README.md)
 - [fragment screening monochromatic data of Nsp3 Mac1](dfs/README.md)  
