@@ -1,4 +1,4 @@
-# PYP
+# NaI-soaked lysozyme
 
 This folder contains instructions and scripts for processing a lysozyme anomalous dataset. Here, we
 1. run `careless` with a bivariate prior, for many values of the double-Wilson `r` parameter, and then 
