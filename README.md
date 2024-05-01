@@ -4,7 +4,7 @@ Examples of merging crystallographic intensities with a bivariate prior
 
 ## Setup 
 
-To run much of the scripts and notebooks in this repository, [Careless](https://github.com/rs-station/careless) must be installed. Many scripts activate a conda environment with Careless installed, e.g.:
+To run much of the scripts and notebooks in this repository, [Careless](https://github.com/rs-station/careless) and [rs-booster](https://github.com/rs-station/rs-booster) must be installed. Many scripts activate a conda environment with Careless installed, e.g.:
 
 [run_ccs.sh](pyp/run_ccs.sh)
 ```
