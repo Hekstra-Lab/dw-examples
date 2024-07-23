@@ -5,8 +5,8 @@ dataset="P0115"
 num=2
 # ^^^^^
 
-#set your path here!
-cd /Users/hwang/Documents/hekstra/dw/pymol_dfs/ 
+#set your path to this folder here!
+cd dw/pymol_dfs/ 
 
 
 #settings

@@ -19,11 +19,11 @@ After running `careless`, we postprocess the data and evaluate the quality of th
 
 ## Folders
 
-- `unmerged_mtzs`: a folder where MTZ files from the Zenodo deposition belong. These files are too large to be added to github. `integrated_NaI_3_04_frame_0001_0999.mtz` contains unmerged intensities from NaI-soaked lysozyme diffraction images processed with laue-dials. `*_{plus,minus}.mtz` are the outputs of `scripts/friedelize.py`, which splits `unmerged.mtz` into anomalous half-datasets. 
+- `unmerged_mtzs`: a folder where MTZ files from the Zenodo deposition belong. These files are too large to be added to github. `integrated_NaI_3_04_frame_0001_0999.mtz` contains unmerged intensities from NaI-soaked lysozyme diffraction images processed with laue-dials. `*_{plus,minus}.mtz` are the outputs of `scripts/friedelize.py`, which splits `unmerged.mtz` into F+ and F- half-datasets. 
 - `careless_runs`: a folder containing a script for running `careless` as a batch array, as well as the resultant subfolders containing outputs from individual runs of `careless`. 
 - `pymol`: inputs to, and outputs from pymol for visualizing anomalous omit maps. 
 - `scripts`: a folder containing various scripts that are used for postprocessing the output data. Included in `scripts` are:
-    - `1_HEWL_anom_unfriedelize.sh`: a script that converts output `careless` MTZ files into downstream readable files. This script relies on `unfriedelize.py` and `unfriedelize_xval.py`, two scripts that unsplit MTZ files that have been split into anomalous half-datasets by `friedelize.py`. This script is called in the main notebook, `Inspect_Careless_param_grid.ipynb`. 
+    - `1_HEWL_anom_unfriedelize.sh`: a script that converts output `careless` MTZ files into downstream readable files. This script relies on `unfriedelize.py` and `unfriedelize_xval.py`, two scripts that unsplit MTZ files that have been split into F+ and F- half-datasets by `friedelize.py`. This script is called in the main notebook, `Inspect_Careless_param_grid.ipynb`. 
     - `2_HEWL_anom_refine.sh`: a script that refines phases for the anomalous omit map. This script calls `sbatch_phenix_Refine.sh`, which relies on `custom_refinement_param_*.eff` and `HEWL_starting_model*.pdb`. This script is called in `Inspect_Careless_param_grid.ipynb`. 
     - `3_HEWL_anom_peak_heights.sh`: a script that computes anomalous omit peak heights from anomalous omit maps. 
     - `anomalous_peak_heights.py`: a script called by `run_ccs.sh` that computes the anomalous peak heights at the iodine and sulfur anomalous scattering positions. 

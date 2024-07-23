@@ -5,7 +5,7 @@ This folder contains instructions and scripts for processing an Nsp3 Mac1 fragme
 2. inspect CCpred and difference map peak heights.
 
 
-We start with MTZ files found in `./20221007_unscaled_unmerged`. These were converted from unmerged `.hkl` files generously gifted by Galen Correy, for (Schuller et al. 2021). 
+We start with MTZ files found in `./20221007_unscaled_unmerged`. These were converted from unmerged `.hkl` files provided by Galen Correy, for (Schuller et al. *Sci. Adv.* 2021, DOI: 10.1126/sciadv.abf8711). 
 
 To run `careless`, we use the script `careless_runs/slurm-dw-array-grid.sh`, which starts a `slurm` batch array job. This job requires `careless_runs/slurm_params.txt`, in which we vary the double-Wilson `r` value across the individual `careless` runs.  To call using slurm: 
 
@@ -32,3 +32,5 @@ Then, we evaluate the quality of the `careless` results in the jupyter notebook 
     - `make_diffmap_all.sh`: A script that uses `rs-booster` to compute difference maps given a folder with `careless` runs in it. 
     - `make_diffmap_indiv.sh`: A script that uses `rs-booster` to computes difference maps of a single `careless` run. 
     - `run_ccs_all.sh`: A script that computes CCpred given a folder with `careless` runs in it. 
+- `Inspect_Careless_param_grid-DFS.ipynb`: a notebook for evaluating the quality of the `careless` results.
+- `compute_pandda_peak_height.ipynb`: a notebook for peak height calculation of the Z-maps. 

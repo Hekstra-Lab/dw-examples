@@ -6,7 +6,7 @@
 #SBATCH -t 0-00:15   # time (D-HH:MM)
 
 # source your copy of phenix here!
-source /n/holylfs05/LABS/hekstra_lab/Lab/garden/phenix/phenix-1.20.1-4487/phenix_env.sh
+source ../../../../../../phenix-1.20.1-4487/phenix_env.sh
 
 REF="../../../refinement"
 # Setup run directory

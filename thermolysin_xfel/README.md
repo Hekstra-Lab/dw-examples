@@ -1,6 +1,6 @@
 # Thermolysin
 
-This folder contains instructions and scripts for analyzing anomalous signal from an XFEL dataset of thermolysin (CXIDB, entry 81; Dalton et al. 2022). Here, we
+This folder contains instructions and scripts for analyzing anomalous signal from an XFEL dataset of thermolysin (CXIDB, entry 81; Dalton et al. 2022, *Nat. Comm.* 2022, https://doi.org/10.1038/s41467-022-35280-8). Here, we
 1. run `careless` with a bivariate prior, for many values of the double-Wilson `r` parameter, and then 
 2. inspect merging statistics and anomalous difference peak heights.
 
@@ -18,12 +18,12 @@ After running `careless`, we evaluate the quality of the `careless` results in t
 
 ## Folders
 
-- `unmerged_mtzs`: a folder with three unmerged MTZ files. `unmerged.mtz` contains unmerged intensities from CXIDB entry 81. `friedel_{plus,minus}.mtz` are the outputs of `scripts/friedelize.py`, which splits `unmerged.mtz` into anomalous half-datasets. 
+- `unmerged_mtzs`: a folder with three unmerged MTZ files. `unmerged.mtz` contains unmerged intensities from CXIDB entry 81. `friedel_{plus,minus}.mtz` are the outputs of `scripts/friedelize.py`, which splits `unmerged.mtz` into F+ and F- half-datasets. 
 - `careless_runs`: a folder containing a script for running `careless` as a batch array, as well as the resultant subfolders containing outputs from individual runs of `careless`. 
 - `refinement`: a folder containing reference pdb files as well as `phenix` `.eff` files for refinement of `careless` outputs. Additionally, the folder contains an MTZ file with reference `R-free flags`. 
-- `scripts`: a folder containing various scripts that are used for processing the output data. Included in `scripts` are:
-    - `anomalous_peak_heights.py`: a script called by `run_ccs.sh` that computes the anomalous peak heights at the five anomalous scattering positions. This script is not explicitly called anywhere. 
-    - `friedelize.py`: the script used for splitting `unmerged.mtz` into anomalous half-datasets. 
+- `scripts`: a folder containing  scripts that are used for processing the output data. Included in `scripts` are:
+    - `anomalous_peak_heights.py`: a script called by `run_ccs.sh` that computes the anomalous peak heights at the five anomalous scattering positions. 
+    - `friedelize.py`: the script used for splitting `unmerged.mtz` into F+ and F- half-datasets. 
     - `launch_refinement_omit.sh`: a script for refining an omit model against `careless` outputs, where the model's anomalous scatterers have occupancy set to 0. This script is called in `unfriedelize_all.sh`. 
     - `launch_refinement.sh`: a script for refining a model against against `careless` outputs. This script is called in `unfriedelize_all.sh`. 
     - `run_ccs.sh`: a script for calculating CC$_\text{1/2}$, CC$_{\text{pred}}$, CC$_\text{anom}$, and anomalous peak heights for each careless output. This script is called in `Inspect_Careless_param_grid.ipynb`. 

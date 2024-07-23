@@ -1,11 +1,11 @@
-#set your path here!
-cd /Users/hwang/Documents/hekstra/dw/pymol/
+#set your path to this folder here!
+cd dw/pymol/ 
 
 #settings
 bg_color white
 set ray_opaque_background, true
 set map_auto_expand_sym, 1
-set mesh_width, 1.2
+set mesh_width, 2
 set antialias, 1
 set direct, 0.5
 util.ray_shadows('none')
@@ -32,7 +32,7 @@ map_double anom2
 isomesh Fobs_mesh, Fobs, 2.0, THL, carve=1.5
 color gray, Fobs_mesh
 isomesh anom_5s_11, anom11, 5.0, THL, carve=1.5
-color orange, anom_5s_11
+color hotpink, anom_5s_11
 
 cmd.set_view((-0.05967680737376213, 0.8059329390525818, -0.5889742970466614, -0.7495788931846619, -0.425830602645874, -0.5067390203475952, -0.6592061519622803, 0.411245197057724, 0.6295291781425476, -0.0001335088163614273, -0.0005337415495887399, -29.431926727294922, 37.03370666503906, 44.79946517944336, -8.800368309020996, 26.789161682128906, 32.278690338134766, -20.0))
 
@@ -41,9 +41,8 @@ png png/multivariate_THL_Zn317.png,dpi=900
 hide everything, anom_5s_11
 
 isomesh anom_5s_2, anom2, 5.0, THL, carve=1.5
-color orange, anom_5s_2
+color hotpink, anom_5s_2
 
-png png/univariate_THL_Zn317.png,dpi=900
 
 hide everything, anom_5s_2
 hide everything, Fobs_mesh
@@ -51,7 +50,7 @@ hide everything, Fobs_mesh
 isomesh Fobs_mesh1.5, Fobs, 1.5, THL, carve=1.5
 color gray, Fobs_mesh1.5
 isomesh anom_3s_11, anom11, 3.0, THL, carve=1.5
-color orange, anom_3s_11
+color hotpink, anom_3s_11
 
 cmd.set_view((0.30357325077056885, 0.4838598072528839, -0.8207940459251404, -0.0008155615068972111, -0.8613159656524658, -0.508045494556427, -0.9527976512908936, 0.15490283071994781, -0.26108303666114807, 0.0013101790100336075, 0.0010656783124431968, -29.386842727661133, 42.21620559692383, 50.18017578125, 5.89509391784668, 26.687164306640625, 32.17668914794922, -20.0))
 
@@ -68,7 +67,7 @@ png png/multivariate_THL_Ca321.png,dpi=900
 hide everything, anom_3s_11
 
 isomesh anom_3s_2, anom2, 3.0, THL, carve=1.5
-color orange, anom_3s_2
+color hotpink, anom_3s_2
 
 cmd.set_view((0.30357325077056885, 0.4838598072528839, -0.8207940459251404, -0.0008155615068972111, -0.8613159656524658, -0.508045494556427, -0.9527976512908936, 0.15490283071994781, -0.26108303666114807, 0.0013101790100336075, 0.0010656783124431968, -29.386842727661133, 42.21620559692383, 50.18017578125, 5.89509391784668, 26.687164306640625, 32.17668914794922, -20.0))
 

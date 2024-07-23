@@ -11,8 +11,8 @@
 # 1: upper refinement directory
 # 2: number of frames
 
-# source phenix
-source /n/hekstra_lab_tier0/Lab/garden/phenix/phenix-1.20.1-4487/phenix_env.sh
+# your phenix source goes here!
+source ../../../../../../phenix-1.20.1-4487/phenix_env.sh
 
 # run refinement
 cd $1/Refine_1

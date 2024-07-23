@@ -1,4 +1,5 @@
-cd /Users/hwang/Documents/hekstra/dw/pymol/
+#set your path to this folder here!
+cd dw/pymol/ 
 
 #settings
 bg_color white

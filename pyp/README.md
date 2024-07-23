@@ -1,11 +1,11 @@
 # PYP
 
-This folder contains instructions and scripts for processing a time-resolved PYP dataset. Here, we
+This folder contains instructions and scripts for processing a time-resolved photactive yellow protein (PYP) dataset. Here, we
 1. run `careless` with a bivariate prior, for many values of the double-Wilson `r` parameter, and then 
 2. inspect merging statistics and time-resolved differences.
 
 
-We start with MTZ files found in `./unmerged_mtzs`. These were converted from `precognition` files gifted by Vukica Srajer, for (Dalton et al. 2022). 
+We start with MTZ files found in `./unmerged_mtzs`. These were converted from `precognition` files provided by Vukica Srajer, for (Dalton et al. *Nat. Comm.* 2022, https://doi.org/10.1038/s41467-022-35280-8). 
 
 To run `careless`, we use the script `careless_runs/slurm-dw-array-grid.sh`, which starts a `slurm` batch array job. This job requires `careless_runs/slurm_params.txt`, in which we vary the double-Wilson `r` value across the individual `careless` runs.  To call using slurm: 
 
