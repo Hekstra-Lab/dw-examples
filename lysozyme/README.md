@@ -5,7 +5,7 @@ This folder contains instructions and scripts for processing a lysozyme anomalou
 2. inspect merging statistics and anomalous differences.
 
 
-We start with MTZ files found in `./unmerged_mtzs`. These were processed by `laue-dials` [link](https://github.com/rs-station/laue-dials/tree/main). 
+We start with MTZ files found in `./unmerged_mtzs`. These were processed by Precognition v5.2.2 (Renz Research, Inc.)
 
 To run `careless`, we use the script `careless_runs/slurm-dw-array-grid.sh`, which starts a `slurm` batch array job. This job requires `careless_runs/slurm_params.txt`, in which we vary the double-Wilson `r` value across the individual `careless` runs.  To call using slurm: 
 
@@ -19,8 +19,14 @@ After running `careless`, we postprocess the data and evaluate the quality of th
 
 ## Folders
 
-- `unmerged_mtzs`: a folder where MTZ files from the Zenodo deposition belong. These files are too large to be added to github. `integrated_NaI_3_04_frame_0001_0999.mtz` contains unmerged intensities from NaI-soaked lysozyme diffraction images processed with laue-dials. `*_{plus,minus}.mtz` are the outputs of `scripts/friedelize.py`, which splits `unmerged.mtz` into F+ and F- half-datasets. 
-- `careless_runs`: a folder containing a script for running `careless` as a batch array, as well as the resultant subfolders containing outputs from individual runs of `careless`. 
+- `unmerged_mtzs`: a folder where MTZ files from the Zenodo deposition belong. These files are too large to be added to github. `unmerged_precognition.mtz` contains unmerged intensities from 720 images of NaI-soaked lysozyme diffraction processed with Precognition (Renz Research, Inc.). `*_{plus,minus}.mtz` are the outputs of `scripts/friedelize.py`, which splits `unmerged.mtz` into F+ and F- half-datasets:
+
+```
+  python scripts/friedelize.py unmerged_mtzs/unmerged_precognition.mtz -p unmerged_mtzs/unmerged_precognition_plus.mtz -m unmerged_mtzs/unmerged_precognition_minus.mtz
+```
+
+- `careless_runs`: a folder containing a script for running `careless` as a batch array, as well as the resultant subfolders containing outputs from individual runs of `careless`.
+- `careless_runs_pred`: a folder containing a script for running `careless` as a batch array, used for calculating replicates of the `CCpred` statistic.
 - `pymol`: inputs to, and outputs from pymol for visualizing anomalous omit maps. 
 - `scripts`: a folder containing various scripts that are used for postprocessing the output data. Included in `scripts` are:
     - `1_HEWL_anom_unfriedelize.sh`: a script that converts output `careless` MTZ files into downstream readable files. This script relies on `unfriedelize.py` and `unfriedelize_xval.py`, two scripts that unsplit MTZ files that have been split into F+ and F- half-datasets by `friedelize.py`. This script is called in the main notebook, `Inspect_Careless_param_grid.ipynb`. 

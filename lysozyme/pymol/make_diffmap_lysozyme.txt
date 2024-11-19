@@ -31,11 +31,14 @@ map_double anom_u
 
 isomesh Fobs_mesh, Fobs, 1.5, hewl, carve=1.5
 color gray, Fobs_mesh
-isomesh anom_4s_m, anom_m, 4.0, hewl, carve=2
+isomesh anom_4s_m, anom_m, 6.0, hewl, carve=2
 color hotpink, anom_4s_m
 
 cmd.set_view((0.4992764890193939, -0.20368452370166779, -0.8421602845191956, -0.6275040507316589, 0.5852298140525818, -0.5135610699653625, 0.5974625945091248, 0.7848699688911438, 0.1643783301115036, 0.0, 0.0, -26.393409729003906, 8.09000015258789, 30.875, 16.5939998626709, 16.94440269470215, 35.842411041259766, -20.0))
 cmd.png("png/multivariate_hewl_IOD_2.png",dpi=900)
+
+isomesh anom_4s_m, anom_m, 4.0, hewl, carve=2
+color hotpink, anom_4s_m
 
 center resi 3 and resn IOD
 cmd.png("png/multivariate_hewl_IOD_3.png",dpi=900)
@@ -66,11 +69,14 @@ cmd.png("png/multivariate_hewl_MET_105.png",dpi=900)
 
 hide everything, anom_4s_m
 
-isomesh anom_4s_u, anom_u, 4.0, hewl, carve=2
+isomesh anom_4s_u, anom_u, 6.0, hewl, carve=2
 color hotpink, anom_4s_u
 
 cmd.set_view((0.4992764890193939, -0.20368452370166779, -0.8421602845191956, -0.6275040507316589, 0.5852298140525818, -0.5135610699653625, 0.5974625945091248, 0.7848699688911438, 0.1643783301115036, 0.0, 0.0, -26.393409729003906, 8.09000015258789, 30.875, 16.5939998626709, 16.94440269470215, 35.842411041259766, -20.0))
 cmd.png("png/univariate_hewl_IOD_2.png",dpi=900)
+
+isomesh anom_4s_u, anom_u, 4.0, hewl, carve=2
+color hotpink, anom_4s_u
 
 center resi 3 and resn IOD
 cmd.png("png/univariate_hewl_IOD_3.png",dpi=900)

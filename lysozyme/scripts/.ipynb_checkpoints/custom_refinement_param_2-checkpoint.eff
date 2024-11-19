@@ -1,6 +1,6 @@
 refinement {
   crystal_symmetry {
-    unit_cell = 78.3121 78.3121 37.2343 90 90 90
+    unit_cell = 79.344 79.344 37.726 90 90 90
     space_group = "P 43 21 2"
   }
   input {

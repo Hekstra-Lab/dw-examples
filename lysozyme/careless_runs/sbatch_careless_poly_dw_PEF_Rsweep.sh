@@ -1,10 +1,10 @@
 #!/bin/bash
 #SBATCH --job-name=careless
-#SBATCH -p gpu_requeue,seas_gpu # partition (queue)
+#SBATCH -p seas_gpu,gpu,gpu_requeue #gpu_test # partition (queue)
 #SBATCH --mem 32G # memory pool for all cores
-#SBATCH -t 0-8:00 # time (D-HH:MM)
+#SBATCH -t 0-01:30 # time (D-HH:MM)
 #SBATCH --gres=gpu:1
-#SBATCH --constraint=v100
+#SBATCH --constraint="a100"
 #SBATCH --array=2-16
 #SBATCH -o myoutput_%j.out
 #SBATCH -e myoutput_%j.err
@@ -27,7 +27,7 @@ R="${TMP[5]}"
 RU="${TMP[6]}"
 
 MODE="poly"
-DMIN=1.73
+DMIN=1.8
 TEST_FRACTION=0.1
 SEED=$RANDOM
 
@@ -35,11 +35,11 @@ HALF_REPEATS=3
 
 MC_SAMPLES=10
 MLPW=32
-FRAMES=0999
+FRAMES=0720
 
 INPUT_MTZS=(
-    ../unmerged_mtzs/integrated_NaI_3_04_frame_0001_${FRAMES}_plus.mtz
-    ../unmerged_mtzs/integrated_NaI_3_04_frame_0001_${FRAMES}_minus.mtz
+    ../unmerged_mtzs/unmerged_precognition_plus.mtz
+    ../unmerged_mtzs/unmerged_precognition_minus.mtz
 )
 
 DW_LIST=None,0
@@ -69,12 +69,12 @@ CARELESS_ARGS=(
     --mlp-width=$MLPW
     --image-layers=$IL
     --positional-encoding-frequencies=$PEF
-    --positional-encoding-keys="xcal,ycal,BATCH"
+    --positional-encoding-keys="X,Y,BATCH"
     --dmin=$DMIN
     --iterations=$ITER
     --test-fraction=$TEST_FRACTION
     --seed=$SEED
-    --wavelength-key='wavelength'
+    --wavelength-key='Wavelength'
 )
 # WARNING: bash [] comparisons only work for integers
 c=$(echo "$R > -0.01" | bc)
@@ -95,7 +95,7 @@ if [ $STDOF -gt 0 ]
 then
   CARELESS_ARGS+=( --studentt-likelihood-dof=$STDOF)
 fi
-CARELESS_ARGS+=("BATCH,xcal,ycal,dHKL,Hobs,Kobs,Lobs,wavelength")
+CARELESS_ARGS+=("BATCH,X,Y,dHKL,Hobs,Kobs,Lobs,Wavelength")
 
 echo $CARELESS_ARGS
 echo "Input MTZs: ${INPUT_MTZS[@]}" > ./$OUT/inputs_params.log
