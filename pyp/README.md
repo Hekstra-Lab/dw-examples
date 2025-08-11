@@ -24,11 +24,11 @@ CARELESS_ARGS+=(--double-wilson-r=${DWR_LIST})
 `DW_LIST` here is `None,0`. This constructs our graph relating datasets. The index for each entry refers to the corresponding input MTZ. The value of each entry corresponds to the node that is the ``parent'' of that entry. 
 In this case, the 0th node does not have a parent, while the parent of the 1st node is node 0. Graphically, that looks like this,
 
-![PYP example graph]('./figures/PYP_example_online_v2.png')
+![PYP example graph]('figures/PYP_example_online_v2.png')
 
 while `DWR_LIST=0.,0.99` lists the values of the correlation parameter $r_{DW}$ associated with each arrow, so
 
-![PYP example graph]('./figures/PYP_example_online_v2.png')
+![PYP example graph]('figures/PYP_example_online_v2.png')
 
 Since the first edge points to `None`, we set its correlation parameter arbitrarily to 0.
 
