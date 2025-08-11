@@ -7,7 +7,9 @@ This folder contains instructions and scripts for processing an Nsp3 Mac1 fragme
 
 We start with MTZ files found in `./20221007_unscaled_unmerged`. These were converted from unmerged `.hkl` files provided by Galen Correy, for (Schuller et al. *Sci. Adv.* 2021, DOI: 10.1126/sciadv.abf8711). 
 
-To run `careless`, we use the script `careless_runs/slurm-dw-array-grid.sh`, which starts a `slurm` batch array job. This job requires `careless_runs/slurm_params.txt`, in which we vary the double-Wilson `r` value across the individual `careless` runs.  To call using slurm: 
+To set up `careless`, we first need to consider how to draw the dependencies between nodes in a Bayesian network. We reason that the apo dataset represents an unperturbed state and that the candidate holo datasets represent a perturbation of the apo dataset, which means that we can draw dependencies from the apo dataset to each holo dataset. To control for any effects of drawn dependencies, we add a control apo dataset that depends on the parent apo dataset. We choose to then generate holo minus apo difference maps with the holo dataset as the minuend and this control dataset as the subtrahend.
+
+To run `careless`, we use the script `careless_runs/slurm-dw-array-grid.sh`, which starts a `slurm` batch array job. This job requires `careless_runs/slurm_params.txt`, in which we vary the double-Wilson `r` value across the individual `careless` runs. To call using slurm: 
 
 ```
 cd careless_runs

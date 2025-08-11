@@ -53,7 +53,7 @@ center ligand
 
 cmd.png("png/multivariate_"+dataset+"_"+str(num)+".png",dpi=900)
 
-hide everything, df_best_mesh
+delete df_best_mesh
 
 isomesh df_univariate_mesh, df_univariate, 3.0, ligand, carve=1.5
 color 0x0571b0, df_univariate_mesh

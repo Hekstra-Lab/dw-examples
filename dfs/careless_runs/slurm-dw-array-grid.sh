@@ -4,7 +4,7 @@
 #SBATCH --mem 90G # memory pool for all cores
 #SBATCH -t 0-03:00 # time (D-HH:MM)
 #SBATCH --gres=gpu:nvidia_a100-sxm4-80gb:1
-#SBATCH --array=11 #2-10
+#SBATCH --array=2-12
 #SBATCH -o myoutput_%j.out
 #SBATCH -e myoutput_%j.err
 
@@ -53,6 +53,30 @@ INPUT_MTZS=(
   ../20221007_unscaled_unmerged/UCSF-P0179/out_ohp.mtz \
 )
 
+if [ ${SLURM_ARRAY_TASK_ID} == 12 ] 
+then
+INPUT_MTZS=(
+  ../20221007_unscaled_unmerged/reference/out_corrected_root200000000_ohp.mtz \
+  ../20221007_unscaled_unmerged/reference/out_corrected_root1_ohp.mtz \
+  ../20221007_unscaled_unmerged/UCSF-P0115/out_ohp.mtz \
+  ../20221007_unscaled_unmerged/UCSF-P0116/out_ohp.mtz \
+  ../20221007_unscaled_unmerged/UCSF-P0123/out_ohp.mtz \
+  ../20221007_unscaled_unmerged/UCSF-P0124/out_ohp.mtz \
+  ../20221007_unscaled_unmerged/UCSF-P0131/out_ohp.mtz \
+  ../20221007_unscaled_unmerged/UCSF-P0132/out_ohp.mtz \
+  ../20221007_unscaled_unmerged/UCSF-P0137/out_ohp.mtz \
+  ../20221007_unscaled_unmerged/UCSF-P0138/out_ohp.mtz \
+  ../20221007_unscaled_unmerged/UCSF-P0139/out_ohp.mtz \
+  ../20221007_unscaled_unmerged/UCSF-P0142/out_ohp.mtz \
+  ../20221007_unscaled_unmerged/UCSF-P0148/out_ohp.mtz \
+  ../20221007_unscaled_unmerged/UCSF-P0159/out_ohp.mtz \
+  ../20221007_unscaled_unmerged/UCSF-P0161/out_ohp.mtz \
+  ../20221007_unscaled_unmerged/UCSF-P0163/out_ohp.mtz \
+  ../20221007_unscaled_unmerged/UCSF-P0178/out_ohp.mtz \
+  ../20221007_unscaled_unmerged/UCSF-P0179/out_ohp.mtz \
+)
+fi
+
 DW_LIST=None,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 USE_DW="DW"
 # WILSON r ARRAY (if n+1 items, call sbatch with --array=0-n)
@@ -64,7 +88,7 @@ DWR_LIST=0.,${R},${R},${R},${R},${R},${R},${R},${R},${R},${R},${R},${R},${R},${R
 
 #Source your installation of careless here. To install careless, see: https://github.com/rs-station/careless
 eval "$(conda shell.bash hook)"
-conda activate careless
+conda activate careless_041
 
 
 OUT=merge_${SLURM_JOB_ID}_${SEED}_${MODE}_mc1_10k_grid_${SLURM_ARRAY_TASK_ID}

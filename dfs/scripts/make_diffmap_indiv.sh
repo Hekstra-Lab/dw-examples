@@ -39,6 +39,6 @@ for ds_num in $(seq 1 $len);do
 
     dataset=${datasets[$(($ds_num-1))]}
     echo ${dataset}
-    rs.find_difference_peaks -f DF -p Phi -z 5 wdm_${num}.mtz ../../20221007_unscaled_unmerged/UCSF-${dataset}/UCSF-${dataset}-pandda-model.pdb -o out_${dataset}_noweights_unscaled.csv
-    rs.find_difference_peaks -f DF -p Phi -z 5 wdm_${num}_scaled.mtz ../../20221007_unscaled_unmerged/UCSF-${dataset}/UCSF-${dataset}-pandda-model.pdb -o out_${dataset}_noweights_scaled.csv
+    rs.find_difference_peaks -f DF -p Phi -z 5 -m wdm_${num}.mtz -o out_${dataset}_noweights_unscaled.csv ../../20221007_unscaled_unmerged/UCSF-${dataset}/UCSF-${dataset}-pandda-model.pdb 
+    rs.find_difference_peaks -f DF -p Phi -z 5 -m wdm_${num}_scaled.mtz -o out_${dataset}_noweights_scaled.csv ../../20221007_unscaled_unmerged/UCSF-${dataset}/UCSF-${dataset}-pandda-model.pdb 
 done
