@@ -14,6 +14,25 @@ cd careless_runs
 sbatch slurm-dw-array-grid.sh
 ```
 
+Two flags in `slurm-dw-array-grid.sh` control the bevaior of the bivariate prior:
+
+```
+CARELESS_ARGS+=(--double-wilson-parents=${DW_LIST}) 
+CARELESS_ARGS+=(--double-wilson-r=${DWR_LIST})
+```
+
+DW_LIST here is `None,0`. This constructs our graph relating datasets. The index for each entry refers to the corresponding input MTZ. The value of each entry corresponds to the node that is the ``parent'' of that entry. 
+In this case, the 0th node does not have a parent, while the parent of the 1st node is node 0. Graphically, 
+
+
+
+USE_DW="DW"
+# WILSON r ARRAY (if n+1 items, call sbatch with --array=0-n)
+# r_string="scale=5; 1-0.4^${SLURM_ARRAY_TASK_ID}"
+# R=$(bc -l <<< ${r_string} )
+# RX=$R
+DWR_LIST=0.,${R}
+
 Many `bash` scripts require activating a `conda` environment with `careless` in it. Please take note that you are activating the right `conda` environment!  
 
 Then, we evaluate the quality of the `careless` results in two jupyter notebooks, `Inspect_Careless_param_grid.ipynb` and `PYP_diff_map_corr.ipynb`. `Inspect_Careless_param_grid.ipynb` calls the `run_ccs.sh` script for computing correlation coefficients of careless results. Both of these notebooks also plots figures. 
