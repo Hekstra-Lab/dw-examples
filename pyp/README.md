@@ -4,9 +4,7 @@ This folder contains instructions and scripts for processing a time-resolved pho
 1. run `careless` with a bivariate prior, for many values of the double-Wilson `r` parameter, and then 
 2. inspect merging statistics and time-resolved differences.
 
-
-We start with MTZ files found in `./unmerged_mtzs`. These were converted from `precognition` files provided by Vukica Srajer, for (Dalton et al. *Nat. Comm.* 2022, https://doi.org/10.1038/s41467-022-35280-8). 
-
+## Configuring the bivariate prior
 To run `careless`, we use the script `careless_runs/slurm-dw-array-grid.sh`, which starts a `slurm` batch array job. This job requires `careless_runs/slurm_params.txt`, in which we vary the double-Wilson `r` value across the individual `careless` runs.  To call using slurm: 
 
 ```
@@ -32,7 +30,9 @@ while `DWR_LIST=0.,0.99`, for example, lists the values of the correlation param
 
 Since the first edge points to `None`, we set its correlation parameter arbitrarily to 0.
 
-### Further notes
+## Further notes
+We start with MTZ files found in `./unmerged_mtzs`. These were converted from `precognition` files provided by Vukica Srajer, for (Dalton et al. *Nat. Comm.* 2022, https://doi.org/10.1038/s41467-022-35280-8). 
+
 Many `bash` scripts require activating a `conda` environment with `careless` in it. Please take note that you are activating the right `conda` environment!  
 
 Then, we evaluate the quality of the `careless` results in two jupyter notebooks, `Inspect_Careless_param_grid.ipynb` and `PYP_diff_map_corr.ipynb`. `Inspect_Careless_param_grid.ipynb` calls the `run_ccs.sh` script for computing correlation coefficients of careless results. Both of these notebooks also plots figures. 
