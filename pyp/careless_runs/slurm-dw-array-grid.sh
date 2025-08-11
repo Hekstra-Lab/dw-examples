@@ -53,7 +53,7 @@ eval "$(conda shell.bash hook)"
 conda activate careless
 
 
-OUT=merge_${SLURM_JOB_ID}_${SEED}_${MODE}_mc1_50k_cl3_grid_${SLURM_ARRAY_TASK_ID}
+OUT=merge_${SLURM_JOB_ID}_${SEED}_${MODE}_grid_${SLURM_ARRAY_TASK_ID}
 #OUT=merge_${SLURM_JOB_ID}/r_${r}
 mkdir -p $OUT
 cp $0 $OUT
@@ -63,7 +63,6 @@ cat $0 > $OUT/slurm_script
 SECONDS=0
 CARELESS_ARGS=(
     --mc-samples=1
-#    --learning-rate=0.001
     --separate-files
     --merge-half-datasets
     --half-dataset-repeats=$HALF_REPEATS
@@ -73,7 +72,6 @@ CARELESS_ARGS=(
     --iterations=$ITER
 #    --positional-encoding-frequencies=$PEF
 #    --positional-encoding-keys="X,Y"
-#    --wilson-prior-b 18.0
     --test-fraction=$TEST_FRACTION
     --seed=$SEED
     --wavelength-key='Wavelength'
