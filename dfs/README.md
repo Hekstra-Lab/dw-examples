@@ -7,7 +7,9 @@ This folder contains instructions and scripts for processing an Nsp3 Mac1 fragme
 
 We start with MTZ files found in `./20221007_unscaled_unmerged`. These were converted from unmerged `.hkl` files provided by Galen Correy, for (Schuller et al. *Sci. Adv.* 2021, DOI: 10.1126/sciadv.abf8711). 
 
-To set up `careless`, we first need to consider how to draw the dependencies between nodes in a Bayesian network. We reason that the apo dataset represents an unperturbed state and that the candidate holo datasets represent a perturbation of the apo dataset, which means that we can draw dependencies from the apo dataset to each holo dataset. To control for any effects of drawn dependencies, we add a control apo dataset that depends on the parent apo dataset. We choose to then generate holo minus apo difference maps with the holo dataset as the minuend and this control dataset as the subtrahend.
+
+## Configuring the bivariate prior
+
 
 To run `careless`, we use the script `careless_runs/slurm-dw-array-grid.sh`, which starts a `slurm` batch array job. This job requires `careless_runs/slurm_params.txt`, in which we vary the double-Wilson `r` value across the individual `careless` runs. To call using slurm: 
 
@@ -15,6 +17,22 @@ To run `careless`, we use the script `careless_runs/slurm-dw-array-grid.sh`, whi
 cd careless_runs
 sbatch slurm-dw-array-grid.sh
 ```
+To set up the Bayesian network, we first need to consider how to draw the dependencies between nodes in a Bayesian network. We reason that the apo dataset represents an unperturbed state and that the candidate holo datasets represent a perturbation of the apo dataset, which means that we can draw dependencies from the apo dataset to each holo dataset. To control for any effects of drawn dependencies, we add a control apo dataset that depends on the parent apo dataset. We choose to then generate holo minus apo difference maps with the holo dataset as the minuend and this control dataset as the subtrahend. The dependency is shown in Figure 6a of our manuscript, and reproduced below.  
+
+Two flags in `slurm-dw-array-grid.sh` control the behavior of the multivariate prior:
+
+```
+CARELESS_ARGS+=(--double-wilson-parents=${DW_LIST}) 
+CARELESS_ARGS+=(--double-wilson-r=${DWR_LIST})
+```
+
+`DW_LIST` here is `None,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0`. This constructs our Bayesian network. The index for each entry refers to the corresponding input MTZ. The value of each entry corresponds to the node that is the ``parent'' of that entry. Additionally, `DWR_LIST=0.,0.99,0.99,0.99,0.99,0.99,0.99,0.99,0.99,0.99,0.99,0.99,0.99,0.99,0.99,0.99,0.99,0.99,0.99` lists the values of the correlation parameter $r_{DW}$ associated with each edge, so
+
+<img src="dw_example_online.png" alt="dw example graph" width="250"/>
+
+Since the first edge points to `None`, we set its correlation parameter arbitrarily to 0.
+
+## Further notes
 
 Many `bash` scripts require activating a `conda` environment with `careless` in it. Please take note that you are activating the right `conda` environment!  
 

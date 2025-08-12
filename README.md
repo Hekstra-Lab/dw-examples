@@ -9,6 +9,16 @@ This folder contains four examples of merging crystallographic intensities with 
 
 Every example includes scripts to run `careless` as well as to analyze the outputs in order to reproduce the figures in the double-Wilson manuscript. For every example, there is a `README.md` that describes the contents of each example folder.  
 
+Auxiliary examples include setting aside a test fraction to semi-independently optimize the double-Wilson $r$:
+
+- [time-resolved Laue crystallography of the photoactive yellow protein, test fraction](pyp_test_fraction/README.md)
+- [anomalous diffraction from serial XFEL crystallography of thermolysin, test fraction](thermolysin_xfel_test_fraction/README.md)
+- [anomalous diffraction from Laue crystallography of NaI-soaked lysozyme, test fraction](lysozyme_test_fraction/README.md)
+
+And an example of using a bivariate versus a univariate prior as the number of scaled images grows:
+
+- [anomalous diffraction from serial XFEL crystallography of thermolysin, sweep across frame number](thermolysin_xfel_frames_sweep/README.md)
+
 ## requirements 
 
 To run much of the scripts and notebooks in this repository, [Careless](https://github.com/rs-station/careless) and [rs-booster](https://github.com/rs-station/rs-booster) must be installed. See both repositories for installation instructions. Many scripts activate a conda environment with Careless installed, e.g. [run_ccs.sh](pyp/run_ccs.sh) in the `pyp` folder:
