@@ -11,7 +11,7 @@ Every example includes scripts to run `careless` as well as to analyze the outpu
 
 We also provide two auxilliary examples:
 
-- For PYP, an example where we set aside a [test fraction to semi-independently optimize the double-Wilson $r$](pyp_test_fraction/README.md)
+- For PYP, an example where we set aside a [test fraction to semi-independently optimize the double-Wilson r](pyp_test_fraction/README.md)
 - For thermolysin, an example where we use a [bivariate versus a univariate prior as the number of scaled images grows](thermolysin_xfel_frames_sweep/README.md)
 
 ## requirements 
