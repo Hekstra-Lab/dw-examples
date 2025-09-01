@@ -1,6 +1,6 @@
 # PYP
 
-This folder contains instructions and scripts for processing a time-resolved photactive yellow protein (PYP) dataset. Here, we
+This folder contains instructions and scripts for processing a time-resolved photactive yellow protein (PYP) dataset. As in the [main PYP example](../pyp/README.md), we
 1. run `careless` with a bivariate prior, for many values of the double-Wilson `r` parameter, and then 
 2. inspect merging statistics and time-resolved differences.
 
